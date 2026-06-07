@@ -141,9 +141,105 @@
         
         .neon-text-cyan { text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
         .theme-light .neon-text-cyan { text-shadow: none; }
+
+        /* --- STYLING & ANIMASI SCREENSAVER BUMI HOLOGRAFIK --- */
+        @keyframes cyber-pulse-glow {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.45; transform: scale(1.05); }
+        }
+        @keyframes horizontal-scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        @keyframes float-hologram {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes rotate-globe-map {
+            0% { background-position: 0 0; }
+            100% { background-position: 630px 0; }
+        }
+        .sc-matrix-grid {
+            background-image: linear-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .sc-pulse-rings {
+            animation: cyber-pulse-glow 4s ease-in-out infinite;
+        }
+        .sc-scanline-laser {
+            animation: horizontal-scan-line 8s linear infinite;
+        }
+        .sc-float-engine {
+            animation: float-hologram 5.5s ease-in-out infinite;
+        }
+        
+        /* CSS Untuk Struktur Konstruksi Bumi Holografik */
+        .hologram-globe-sphere {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Earthmap1000x500compac.jpg/640px-Earthmap1000x500compac.jpg');
+            background-size: cover;
+            background-repeat: repeat-x;
+            animation: rotate-globe-map 18s linear infinite;
+            box-shadow: inset 0 0 40px rgba(0, 240, 255, 0.7), 0 0 40px rgba(6, 182, 212, 0.4);
+            position: relative;
+            opacity: 0.65;
+            filter: hue-rotate(130deg) brightness(1.2) contrast(1.3);
+        }
+        .hologram-globe-sphere::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(90deg, rgba(2,9,22,0.7) 0%, transparent 30%, transparent 70%, rgba(2,9,22,0.7) 100%),
+                        linear-gradient(0deg, rgba(6,182,212,0.2), transparent 60%);
+            z-index: 2;
+        }
     </style>
 </head>
 <body id="appBody" class="theme-dark bg-[var(--bg-main)] text-[var(--text-main)] p-4 lg:p-6 min-h-screen flex flex-col justify-between overflow-x-hidden relative pb-28 text-[15px] select-none md:antialiased">
+
+    <div id="inatewsTechScreensaver" class="hidden fixed inset-0 z-[350] bg-[#020916] flex flex-col items-center justify-center overflow-hidden font-tech transition-all duration-700 opacity-0 select-none">
+        <div class="absolute inset-0 sc-matrix-grid opacity-40 pointer-events-none"></div>
+        
+        <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-40 sc-scanline-laser pointer-events-none"></div>
+        
+        <div class="absolute w-[650px] h-[650px] rounded-full border-2 border-cyan-500/10 sc-pulse-rings pointer-events-none flex items-center justify-center">
+            <div class="w-[500px] h-[500px] rounded-full border border-red-500/20 animate-spin" style="animation-duration: 25s;"></div>
+        </div>
+
+        <div class="mb-6 sc-float-engine relative z-10 flex items-center justify-center">
+            <div class="absolute w-[280px] h-[280px] rounded-full border border-cyan-500/30 animate-ping" style="animation-duration: 3s;"></div>
+            <div class="hologram-globe-sphere"></div>
+            <div class="absolute w-[260px] h-[260px] rounded-full border-2 border-dashed border-indigo-500/40 animate-spin" style="animation-duration: 40s; transform: rotateX(70deg);"></div>
+        </div>
+
+        <div class="z-10 text-center sc-float-container flex flex-col items-center px-4">
+            <div class="mb-4 flex items-center gap-2 border border-red-500/30 px-4 py-1.5 rounded-full bg-red-950/40 text-red-400 font-mono text-xs tracking-[0.25em] uppercase shadow-[0_0_15px_rgba(239,68,68,0.15)]">
+                <i class="fa-solid fa-satellite-dish animate-pulse"></i> InaTEWS Holographic Monitor Node
+            </div>
+
+            <div id="scClockDisplay" class="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-300 to-cyan-600 tracking-wider filter drop-shadow-[0_0_30px_rgba(6,182,212,0.6)]">
+                00:00:00
+            </div>
+
+            <div class="mt-4 flex items-center gap-4 text-slate-300 font-medium tracking-widest text-base md:text-xl border-t border-b border-cyan-500/30 py-2 px-8 bg-slate-900/40 backdrop-blur-sm">
+                <span id="scDateDisplay" class="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-cyan-200">Sabtu, 06 Jun 2026</span>
+                <div class="w-[2px] h-5 bg-cyan-500/50"></div>
+                <span id="scTzDisplay" class="text-xs font-mono font-black tracking-widest text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.3)]">WIB</span>
+            </div>
+
+            <div class="mt-10 text-slate-500 font-mono text-[11px] tracking-[0.3em] uppercase animate-pulse flex items-center gap-2">
+                <i class="fa-solid fa-computer-mouse"></i> Gerakkan Mouse / Sentuh Layar Untuk Kembali
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 font-mono text-[9px] tracking-widest text-slate-600 uppercase flex items-center gap-1.5">
+            <span>InaTEWS Core Engine v2.6</span>|<span>Hologram Environment</span>
+        </div>
+    </div>
+
 
     <div id="dynamicTooltip" class="fixed z-[9999] pointer-events-none opacity-0 transition-opacity duration-200 bg-slate-900/95 backdrop-blur-sm border border-cyan-500 text-white px-3 py-2 rounded-xl shadow-[0_0_15px_rgba(0,240,255,0.2)] text-[11px] font-mono max-w-[220px] hidden leading-relaxed">
         <span id="tooltipText"></span>
@@ -201,17 +297,17 @@
 
                 <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full md:w-auto justify-stretch sm:justify-end">
                     <div class="flex items-center bg-slate-950 theme-light:bg-slate-900 p-1 border-2 border-[var(--border-color)] rounded-xl gap-1 shadow-inner w-full sm:w-auto justify-center">
-                        <button onclick="startTsunamiSiren()" id="mainBtnSiren" class="px-3.5 py-2 text-[11px] rounded-lg font-tech font-black bg-blue-950 text-blue-400 border border-blue-800/60 cursor-pointer hover:bg-blue-900 transition-all uppercase flex-1 sm:flex-none" data-tooltip="Uji coba bunyikan audio simulasi sirine peringatan dini">TEST</button>
-                        <button onclick="stopTsunamiSiren()" id="mainBtnMute" class="px-3.5 py-2 text-[11px] rounded-lg font-tech font-black bg-red-950 text-red-400 border border-red-800/60 cursor-pointer hover:bg-red-900 transition-all uppercase flex-1 sm:flex-none" data-tooltip="Matikan suara sirine darurat yang sedang berbunyi"><i class="fa-solid fa-volume-xmark mr-1"></i>MUTE</button>
+                        <button onclick="startTsunamiSiren()" id="mainBtnSiren" class="px-3.5 py-2 text-[11px] rounded-lg font-tech font-black bg-blue-950 text-blue-400 border border-blue-800/60 pointer-events-auto cursor-pointer hover:bg-blue-900 transition-all uppercase flex-1 sm:flex-none">TEST</button>
+                        <button onclick="stopTsunamiSiren()" id="mainBtnMute" class="px-3.5 py-2 text-[11px] rounded-lg font-tech font-black bg-red-950 text-red-400 border border-red-800/60 pointer-events-auto cursor-pointer hover:bg-red-900 transition-all uppercase flex-1 sm:flex-none"><i class="fa-solid fa-volume-xmark mr-1"></i>MUTE</button>
                     </div>
 
-                    <button type="button" onclick="openCreatorModal()" class="bg-slate-800 hover:bg-slate-700 theme-light:bg-slate-900 theme-light:hover:bg-slate-800 text-white text-xs font-mono font-black px-4 py-2.5 rounded-xl border-2 border-[var(--border-color)] cursor-pointer transition-all flex items-center justify-center gap-1.5 flex-1 sm:flex-none" data-tooltip="Lihat detail informasi pengembang (Developer) sistem web ini">
+                    <button type="button" onclick="openCreatorModal()" class="bg-slate-800 hover:bg-slate-700 theme-light:bg-slate-900 theme-light:hover:bg-slate-800 text-white text-xs font-mono font-black px-4 py-2.5 rounded-xl border-2 border-[var(--border-color)] cursor-pointer transition-all flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
                         <i class="fa-solid fa-code text-cyan-400"></i> <span>CREATOR</span>
                     </button>
-                    <button type="button" onclick="toggleThemeInterface()" class="bg-slate-950 border-2 border-[var(--border-color)] theme-light:bg-slate-200 theme-light:hover:bg-slate-300 theme-light:text-slate-900 text-xs font-mono font-black px-4 py-2.5 rounded-xl cursor-pointer transition-all text-slate-300 hover:bg-slate-900 flex items-center justify-center gap-1.5 flex-1 sm:flex-none" data-tooltip="Ubah tema visual dasbor (Gelap / Terang)">
+                    <button type="button" onclick="toggleThemeInterface()" class="bg-slate-950 border-2 border-[var(--border-color)] theme-light:bg-slate-200 theme-light:hover:bg-slate-300 theme-light:text-slate-900 text-xs font-mono font-black px-4 py-2.5 rounded-xl cursor-pointer transition-all text-slate-300 hover:bg-slate-900 flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
                         <i id="themeIcon" class="fa-solid fa-moon"></i> <span id="themeText">DARK</span>
                     </button>
-                    <button type="button" onclick="openHelpModal()" class="bg-slate-950 border-2 border-emerald-600 text-xs font-mono font-black px-4 py-2.5 rounded-xl cursor-pointer transition-all text-emerald-400 theme-light:text-emerald-700 theme-light:bg-emerald-100 theme-light:hover:bg-emerald-200 hover:bg-emerald-950/40 flex items-center justify-center gap-1.5 flex-1 sm:flex-none" data-tooltip="Baca standar panduan mitigasi evakuasi mandiri (Aturan 20-20-20)">
+                    <button type="button" onclick="openHelpModal()" class="bg-slate-950 border-2 border-emerald-600 text-xs font-mono font-black px-4 py-2.5 rounded-xl cursor-pointer transition-all text-emerald-400 theme-light:text-emerald-700 theme-light:bg-emerald-100 theme-light:hover:bg-emerald-200 hover:bg-emerald-950/40 flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
                         <i class="fa-solid fa-circle-question"></i> <span>HELP</span>
                     </button>
                 </div>
@@ -219,7 +315,6 @@
         </header>
 
         <main class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start w-full flex-1">
-            
             <section class="lg:col-span-3 flex flex-col gap-5 h-full">
                 <div class="bg-[var(--bg-card)] p-4 rounded-2xl border-2 border-[var(--border-color)] shadow-sm flex-1 interactive-card" data-tooltip="Tanda-tanda makro alam yang dapat Anda rasakan tanpa alat deteksi">
                     <h2 class="font-tech text-base md:text-lg font-black text-cyan-500 theme-light:text-cyan-700 border-b-2 border-[var(--border-color)] pb-2 flex items-center gap-2 uppercase tracking-wide">
@@ -249,10 +344,10 @@
                          <i class="fa-solid fa-earth-asiapacific"></i> Peta Episentrum Terintegrasi
                      </h2>
                      <div class="flex items-center gap-2 relative z-20 w-full sm:w-auto justify-end">
-                         <button onclick="enterMapFullScreenMode()" id="btnMapFullScreen" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-mono font-bold text-xs transition-all shadow-sm flex items-center gap-1 cursor-pointer" data-tooltip="Perbesar antarmuka peta menjadi satu layar penuh (Fullscreen)">
+                         <button onclick="enterMapFullScreenMode()" id="btnMapFullScreen" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-mono font-bold text-xs transition-all shadow-sm flex items-center gap-1 cursor-pointer">
                              <i class="fa-solid fa-expand text-cyan-400"></i> PETA FULL SCREEN
                          </button>
-                         <div class="flex rounded-lg bg-[var(--panel-inner)] p-1 border-2 border-[var(--border-color)] text-xs font-mono font-black" data-tooltip="Beralih pandangan antara peta spasial gempa dengan satelit cuaca radar">
+                         <div class="flex rounded-lg bg-[var(--panel-inner)] p-1 border-2 border-[var(--border-color)] text-xs font-mono font-black">
                              <button onclick="toggleMapWeatherFlip('map')" id="btnViewMap" class="px-3 py-1.5 rounded-md bg-cyan-600 text-white transition-all font-bold cursor-pointer">PETA GIS</button>
                              <button onclick="toggleMapWeatherFlip('weather')" id="btnViewWeather" class="px-3 py-1.5 rounded-md text-[var(--text-muted)] hover:text-cyan-600 transition-all font-bold cursor-pointer">RADAR LAUT</button>
                          </div>
@@ -269,7 +364,7 @@
                                     <span><i class="fa-solid fa-bullseye animate-spin mr-1 text-red-500"></i> TELEMETRY STREAM LIVE</span>
                                     <span id="sync-countdown-badge" class="text-[9px] px-1.5 bg-cyan-950 border border-cyan-400 text-cyan-300 rounded font-mono font-bold">60s</span>
                                 </div>
-                                <div class="bg-slate-950/95 p-1.5 rounded-xl border-2 border-slate-700 flex items-center gap-1 shadow-2xl" data-tooltip="Ketik nama kota atau daerah untuk memusatkan kamera peta ke area tersebut">
+                                <div class="bg-slate-950/95 p-1.5 rounded-xl border-2 border-slate-700 flex items-center gap-1 shadow-2xl">
                                     <i class="fa-solid fa-magnifying-glass text-cyan-400 pl-2 text-sm"></i>
                                     <input type="text" id="citySearchInput" oninput="filterCitySearch('citySearchInput', 'searchSuggestions')" onkeydown="if(event.key==='Enter') executeUniversalSearch('citySearchInput', 'searchSuggestions')" placeholder="Cari wilayah episentrum..." class="w-full bg-transparent text-white font-mono text-xs p-1 focus:outline-none placeholder-slate-500 font-bold">
                                     <button onclick="executeUniversalSearch('citySearchInput', 'searchSuggestions')" class="px-3 py-1 bg-cyan-700 hover:bg-cyan-600 rounded text-[11px] text-white font-bold transition-all cursor-pointer">CARI</button>
@@ -278,7 +373,7 @@
                             </div>
                             
                             <div class="absolute top-3 right-3 z-20 pointer-events-auto">
-                                <div class="flex rounded-lg bg-slate-950/90 p-1 border-2 border-slate-700 text-[10px] font-mono font-bold shadow-md" data-tooltip="Ubah tipe basemap peta (Jalan Raya, Satelit Asli, Peta Topografi 3D)">
+                                <div class="flex rounded-lg bg-slate-950/90 p-1 border-2 border-slate-700 text-[10px] font-mono font-bold shadow-md">
                                     <button onclick="switchBaseMapLayer('street')" id="mapBtn-street" class="px-2 py-1.5 rounded text-slate-400 font-bold cursor-pointer">STREET</button>
                                     <button onclick="switchBaseMapLayer('satellite')" id="mapBtn-satellite" class="px-2 py-1.5 rounded bg-cyan-600 text-white font-bold cursor-pointer">SATELIT</button>
                                     <button onclick="switchBaseMapLayer('terrain')" id="mapBtn-terrain" class="px-2 py-1.5 rounded text-slate-400 font-bold cursor-pointer">TOPO 3D</button>
@@ -295,10 +390,10 @@
                         <i class="fa-solid fa-microchip text-slate-400"></i> Jaringan Subsistem Teknologi Deteksi InaTEWS
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
-                        <button onclick="switchPilar(1)" id="btn-pilar-1" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-cyan-500 bg-cyan-950/40 text-cyan-400 font-black cursor-pointer transition-all" data-tooltip="Penjelasan operasional Seismometer">1. SEISMOMETER</button>
-                        <button onclick="switchPilar(2)" id="btn-pilar-2" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-slate-700 bg-slate-900/40 text-slate-400 font-bold cursor-pointer transition-all theme-light:border-slate-300 theme-light:text-slate-700" data-tooltip="Penjelasan alat Tide Gauge pencatat pasang surut">2. TIDE GAUGE</button>
-                        <button onclick="switchPilar(3)" id="btn-pilar-3" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-slate-700 bg-slate-900/40 text-slate-400 font-bold cursor-pointer transition-all theme-light:border-slate-300 theme-light:text-slate-700" data-tooltip="Penjelasan pelampung peringatan dini laut lepas (OBPR)">3. INABUOY OBPR</button>
-                        <button onclick="switchPilar(4)" id="btn-pilar-4" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-slate-700 bg-slate-900/40 text-slate-400 font-bold cursor-pointer transition-all theme-light:border-slate-300 theme-light:text-slate-700" data-tooltip="Penjelasan sistem Radar Detektor Pantai Frekuensi Tinggi">4. HF RADAR</button>
+                        <button onclick="switchPilar(1)" id="btn-pilar-1" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-cyan-500 bg-cyan-950/40 text-cyan-400 font-black cursor-pointer transition-all">1. SEISMOMETER</button>
+                        <button onclick="switchPilar(2)" id="btn-pilar-2" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-slate-700 bg-slate-900/40 text-slate-400 font-bold cursor-pointer transition-all theme-light:border-slate-300 theme-light:text-slate-700">2. TIDE GAUGE</button>
+                        <button onclick="switchPilar(3)" id="btn-pilar-3" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-slate-700 bg-slate-900/40 text-slate-400 font-bold cursor-pointer transition-all theme-light:border-slate-300 theme-light:text-slate-700">3. INABUOY OBPR</button>
+                        <button onclick="switchPilar(4)" id="btn-pilar-4" class="pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-slate-700 bg-slate-900/40 text-slate-400 font-bold cursor-pointer transition-all theme-light:border-slate-300 theme-light:text-slate-700">4. HF RADAR</button>
                     </div>
                     <div id="pilar-content" class="bg-[var(--panel-inner)] p-3.5 rounded-xl border border-slate-700/30 min-h-[90px] transition-all duration-300"></div>
                 </div>
@@ -312,15 +407,15 @@
                     <div class="space-y-3 bg-slate-900/40 theme-light:bg-slate-100 p-3.5 rounded-xl border border-slate-800/30 text-xs md:text-sm font-semibold">
                         <div>
                             <label class="block font-tech font-bold text-cyan-500 theme-light:text-cyan-700 mb-1">MAGNITUDO GEMPA: <span id="lbl-mag" class="text-white theme-light:text-slate-950 font-mono font-black">7.5</span> M</label>
-                            <input type="range" id="slider-mag" min="50" max="95" value="75" oninput="jalankanKalkulasiDinamis();" class="w-full accent-cyan-500 cursor-pointer h-2 bg-slate-700 rounded-lg appearance-none" data-tooltip="Geser untuk memanipulasi kekuatan Skala Magnitudo parameter simulasi">
+                            <input type="range" id="slider-mag" min="50" max="95" value="75" oninput="jalankanKalkulasiDinamis();" class="w-full accent-cyan-500 cursor-pointer h-2 bg-slate-700 rounded-lg appearance-none">
                         </div>
                         <div>
                             <label class="block font-tech font-bold text-amber-500 theme-light:text-amber-700 mb-1">KEDALAMAN SESAR: <span id="lbl-depth" class="text-white theme-light:text-slate-950 font-mono font-black">15</span> Km</label>
-                            <input type="range" id="slider-depth" min="5" max="150" value="15" oninput="jalankanKalkulasiDinamis();" class="w-full accent-amber-500 cursor-pointer h-2 bg-slate-700 rounded-lg appearance-none" data-tooltip="Geser untuk mengubah titik kedalaman sumber patahan lempeng">
+                            <input type="range" id="slider-depth" min="5" max="150" value="15" oninput="jalankanKalkulasiDinamis();" class="w-full accent-amber-500 cursor-pointer h-2 bg-slate-700 rounded-lg appearance-none">
                         </div>
                         <div>
                             <label class="block font-tech font-bold text-[var(--text-main)] mb-1">TIPE MEKANISME PATAHAN:</label>
-                            <select id="select-fault" onchange="jalankanKalkulasiDinamis();" class="w-full bg-slate-950 theme-light:bg-white p-2 border-2 border-[var(--border-color)] text-white theme-light:text-slate-950 rounded font-mono text-xs font-bold focus:outline-none cursor-pointer" data-tooltip="Pilih tipe perpindahan batuan tektonik. Sesar Naik berpotensi tinggi memicu tsunami.">
+                            <select id="select-fault" onchange="jalankanKalkulasiDinamis();" class="w-full bg-slate-950 theme-light:bg-white p-2 border-2 border-[var(--border-color)] text-white theme-light:text-slate-950 rounded font-mono text-xs font-bold focus:outline-none cursor-pointer">
                                 <option value="thrust">Thrust Fault (Sesar Naik) - Vertikal</option>
                                 <option value="normal">Normal Fault (Sesar Turun) - Vertikal</option>
                                 <option value="strike">Strike-Slip Fault (Sesar Geser) - Horisontal</option>
@@ -329,7 +424,7 @@
                     </div>
                 </div>
 
-                <div class="bg-[var(--bg-card)] p-4 rounded-2xl border-2 border-[var(--border-color)] flex flex-col gap-3 shadow-sm flex-1 interactive-card" data-tooltip="Data pembacaan telemetri aktif kejadian gempa bumi yang sedang dipantau di layar">
+                <div class="bg-[var(--bg-card)] p-4 rounded-2xl border-2 border-[var(--border-color)] flex flex-col gap-3 shadow-sm flex-1 interactive-card">
                     <h2 class="font-tech text-base md:text-lg font-black text-cyan-500 theme-light:text-cyan-700 border-b-2 border-[var(--border-color)] pb-2 flex items-center gap-2 uppercase tracking-wide">
                         <i class="fa-solid fa-satellite-dish animate-pulse text-cyan-500"></i> Gempa Terkini (API BMKG)
                     </h2>
@@ -385,16 +480,20 @@
     </div>
 
     <div class="fixed bottom-5 left-6 z-[120] flex gap-3 select-none">
-        <button onclick="toggleFloatingWidget('bmkgLiveWidget')" class="h-11 px-4 rounded-xl bg-slate-900 border-2 border-cyan-500 flex items-center gap-2 text-white shadow-2xl cursor-pointer hover:scale-105 active:scale-95 transition-all text-xs font-tech font-bold uppercase tracking-wider" data-tooltip="Tampilkan daftar lengkap kejadian gempa bumi tektonik terkini secara langsung">
+        <button onclick="toggleFloatingWidget('bmkgLiveWidget')" class="h-11 px-4 rounded-xl bg-slate-900 border-2 border-cyan-500 flex items-center gap-2 text-white shadow-2xl cursor-pointer hover:scale-105 active:scale-95 transition-all text-xs font-tech font-bold uppercase tracking-wider">
             <i class="fa-solid fa-tower-broadcast text-cyan-400 animate-pulse text-sm"></i> DATA BMKG LIVE
         </button>
-        <button onclick="toggleFloatingWidget('sejarahGempaWidget')" class="h-11 px-4 rounded-xl bg-slate-900 border-2 border-amber-500 flex items-center gap-2 text-white shadow-2xl cursor-pointer hover:scale-105 active:scale-95 transition-all text-xs font-tech font-bold uppercase tracking-wider" data-tooltip="Tampilkan rekam jejak peristiwa bencana seismik dahsyat masa lampau di Indonesia">
+        <button onclick="toggleFloatingWidget('sejarahGempaWidget')" class="h-11 px-4 rounded-xl bg-slate-900 border-2 border-amber-500 flex items-center gap-2 text-white shadow-2xl cursor-pointer hover:scale-105 active:scale-95 transition-all text-xs font-tech font-bold uppercase tracking-wider">
             <i class="fa-solid fa-clock-rotate-left text-amber-400 text-sm"></i> ARSIP SEJARAH
         </button>
     </div>
 
-    <div id="chatBotContainer" class="fixed bottom-5 right-6 z-[120] flex flex-col items-end">
-        <button onclick="toggleChatWindow()" class="h-12 w-12 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-white shadow-2xl cursor-pointer hover:scale-110 active:scale-90 transition-transform" data-tooltip="Buka Panel Konsol Chat Terminal (AI Asisten Mitigasi)">
+    <div id="chatBotContainer" class="fixed bottom-5 right-6 z-[120] flex flex-col items-end gap-3">
+        <button onclick="activateTechScreensaver()" class="h-11 w-11 rounded-full bg-gradient-to-r from-slate-900 to-indigo-950 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-2xl cursor-pointer hover:scale-110 transition-all" title="Simulasi Pengaktifan Layar Screensaver Sekarang">
+            <i class="fa-solid fa-desktop text-sm"></i>
+        </button>
+
+        <button onclick="toggleChatWindow()" class="h-12 w-12 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-white shadow-2xl cursor-pointer hover:scale-110 active:scale-90 transition-transform">
             <i class="fa-solid fa-robot text-xl text-cyan-400"></i>
         </button>
         <div id="chatWindow" class="w-[350px] h-[420px] bg-slate-900 border-2 border-slate-700 rounded-2xl flex-col hidden mt-3 overflow-hidden shadow-2xl transition-all duration-300">
@@ -421,7 +520,7 @@
     <div id="gisFullScreenWrapper" class="hidden fixed inset-0 z-[150] bg-slate-950 w-screen h-screen">
         <div id="fullscreenMapControls" class="absolute top-0 inset-x-0 z-[1000] p-4 bg-slate-900/95 border-b border-slate-700 shadow-2xl flex flex-col lg:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2 shrink-0">
-                <i class="fa-solid fa-compass text-cyan-400 animate-spin"></i>
+                <i class="fa-solid fa-compass text-cyan-400 anonymity-spin"></i>
                 <span class="font-tech text-xs font-black text-white tracking-wider">INDONESIA InaTEWS FULLSCREEN ENVIRONMENT</span>
             </div>
             
@@ -432,7 +531,7 @@
                 </div>
             </div>
 
-            <div class="bg-slate-950/95 p-1 rounded-xl border-2 border-cyan-500/50 flex items-center gap-1 w-64 md:w-80 pointer-events-auto" data-tooltip="Ketik untuk memusatkan kamera satelit">
+            <div class="bg-slate-950/95 p-1 rounded-xl border-2 border-cyan-500/50 flex items-center gap-1 w-64 md:w-80 pointer-events-auto">
                 <i class="fa-solid fa-magnifying-glass text-cyan-400 pl-2 text-sm"></i>
                 <input type="text" id="fullscreenSearchInput" oninput="filterCitySearch('fullscreenSearchInput', 'fsSuggestions')" onkeydown="if(event.key==='Enter') executeUniversalSearch('fullscreenSearchInput', 'fsSuggestions')" placeholder="Cari stasiun sesar di layar penuh..." class="w-full bg-transparent text-white font-mono text-xs p-1 focus:outline-none placeholder-slate-500 font-bold">
                 <button onclick="executeUniversalSearch('fullscreenSearchInput', 'fsSuggestions')" class="px-3 py-1 bg-cyan-700 hover:bg-cyan-600 rounded text-[11px] text-white font-bold transition-all cursor-pointer">CARI</button>
@@ -441,20 +540,20 @@
 
             <div class="flex flex-wrap items-center gap-3 justify-center">
                 <div class="flex items-center bg-slate-950 p-1 border-2 border-slate-700 rounded-lg gap-1 shadow-inner">
-                    <button onclick="startTsunamiSiren()" id="fsBtnSiren" class="px-3 py-1.5 text-[10px] rounded font-tech font-bold bg-blue-950 text-blue-400 border border-blue-800/60 pointer-events-auto cursor-pointer hover:bg-blue-900 transition-all uppercase" data-tooltip="Bunyikan simulasi sirine Tsunami">TEST</button>
-                    <button onclick="stopTsunamiSiren()" id="fsBtnMute" class="px-3 py-1.5 text-[10px] rounded font-tech font-bold bg-red-950 text-red-400 border border-red-800 cursor-pointer hover:bg-red-900 transition-all uppercase" data-tooltip="Matikan suara sirine darurat"><i class="fa-solid fa-volume-xmark mr-1"></i>MUTE</button>
+                    <button onclick="startTsunamiSiren()" id="fsBtnSiren" class="px-3 py-1.5 text-[10px] rounded font-tech font-bold bg-blue-950 text-blue-400 border border-blue-800/60 pointer-events-auto cursor-pointer hover:bg-blue-900 transition-all uppercase">TEST</button>
+                    <button onclick="stopTsunamiSiren()" id="fsBtnMute" class="px-3 py-1.5 text-[10px] rounded font-tech font-bold bg-red-950 text-red-400 border border-red-800 cursor-pointer hover:bg-red-900 transition-all uppercase"><i class="fa-solid fa-volume-xmark mr-1"></i>MUTE</button>
                 </div>
 
-                <div class="flex rounded-lg bg-slate-950 p-1 border-2 border-slate-700 text-[10px] font-mono font-bold" data-tooltip="Beralih antar antarmuka deteksi Peta dan Radar Samudera">
+                <div class="flex rounded-lg bg-slate-950 p-1 border-2 border-slate-700 text-[10px] font-mono font-bold">
                     <button onclick="toggleMapWeatherFlip('map')" id="fsBtnMap" class="px-2 py-1.5 rounded bg-cyan-600 text-white cursor-pointer font-bold">PETA GIS</button>
                     <button onclick="toggleMapWeatherFlip('weather')" id="fsBtnWeather" class="px-2 py-1.5 rounded text-slate-400 cursor-pointer font-bold">RADAR LAUT</button>
                 </div>
-                <div id="fsBasemapControlsGroup" class="flex rounded-lg bg-slate-950 p-1 border-2 border-slate-700 text-[10px] font-mono font-bold" data-tooltip="Mode lapisan tipe satelit basemap untuk observasi daratan">
+                <div id="fsBasemapControlsGroup" class="flex rounded-lg bg-slate-950 p-1 border-2 border-slate-700 text-[10px] font-mono font-bold">
                     <button onclick="switchBaseMapLayer('street')" id="fsMapBtn-street" class="px-2 py-1.5 rounded text-slate-400 font-bold pointer-events-auto cursor-pointer">STREET</button>
                     <button onclick="switchBaseMapLayer('satellite')" id="fsMapBtn-satellite" class="px-2 py-1.5 rounded bg-cyan-600 text-white font-bold pointer-events-auto cursor-pointer">SATELIT</button>
                     <button onclick="switchBaseMapLayer('terrain')" id="fsMapBtn-terrain" class="px-2 py-1.5 rounded text-slate-400 font-bold pointer-events-auto cursor-pointer">TOPO 3D</button>
                 </div>
-                <button onclick="exitMapFullScreenMode()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-mono font-bold text-xs rounded-lg cursor-pointer transition-colors shadow-md" data-tooltip="Tutup mode layar penuh dan kembali ke struktur UI dasbor utama">
+                <button onclick="exitMapFullScreenMode()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-mono font-bold text-xs rounded-lg cursor-pointer transition-colors shadow-md">
                     EXIT INTERFACE
                 </button>
             </div>
@@ -534,6 +633,11 @@
         let sirenOsc2 = null;
         let sirenGain = null;
         let isSirenPlaying = false;
+
+        // SCREENSAVER IDLE SYSTEM RUNTIME VARIABLES
+        let systemIdleSecondsCounter = 0;
+        const maxSecondsBeforeScreensaver = 300; // 5 Menit Ambang Batas Konstan
+        let isScreensaverActive = false;
 
         const historicalCatalog = [
             { name: "GEMPA KATALISTIK & TSUNAMI ACEH (2004)", mag: 9.1, coords: [3.30, 95.60], depth: 25, fault: "thrust", desc: "Sesar Megathrust barat Sumatra patah secara masif, memicu rambatan gelombang tsunami destructive masif setinggi 30 meter." },
@@ -661,6 +765,7 @@
             
             document.getElementById('lbl-real-tz').innerText = tzName;
             document.getElementById('lbl-fs-tz').innerText = tzName;
+            document.getElementById('scTzDisplay').innerText = tzName;
 
             setInterval(() => {
                 const now = new Date();
@@ -672,7 +777,62 @@
                 
                 document.getElementById('lbl-fs-day').innerText = dayStr;
                 document.getElementById('lbl-fs-clock').innerText = timeStr;
+
+                // Sync data waktu ke screensaver kontainer jika kondisi aktif
+                if(isScreensaverActive) {
+                    document.getElementById('scClockDisplay').innerText = timeStr;
+                    document.getElementById('scDateDisplay').innerText = dayStr;
+                }
+
+                // Increment tracker idleness sistem tiap 1 detik konstan
+                systemIdleSecondsCounter++;
+                if(systemIdleSecondsCounter >= maxSecondsBeforeScreensaver && !isScreensaverActive) {
+                    activateTechScreensaver();
+                }
             }, 1000);
+
+            // Pasang pendengar interaksi user untuk ngereset idle hook
+            setupIdleInterceptors();
+        }
+
+        /* --- MANAJEMEN EVENT TRACKING SCREENSAVER --- */
+        function setupIdleInterceptors() {
+            const resetIdleTracker = () => {
+                systemIdleSecondsCounter = 0;
+                if(isScreensaverActive) {
+                    deactivateTechScreensaver();
+                }
+            };
+            window.addEventListener("mousemove", resetIdleTracker);
+            window.addEventListener("keypress", resetIdleTracker);
+            window.addEventListener("mousedown", resetIdleTracker);
+            window.addEventListener("touchstart", resetIdleTracker);
+            window.addEventListener("scroll", resetIdleTracker);
+        }
+
+        function activateTechScreensaver() {
+            if(isScreensaverActive) return;
+            isScreensaverActive = true;
+            
+            const scContainer = document.getElementById("inatewsTechScreensaver");
+            scContainer.classList.remove("hidden");
+            setTimeout(() => {
+                scContainer.classList.remove("opacity-0");
+                scContainer.classList.add("opacity-100");
+            }, 50);
+        }
+
+        function deactivateTechScreensaver() {
+            if(!isScreensaverActive) return;
+            isScreensaverActive = false;
+            
+            const scContainer = document.getElementById("inatewsTechScreensaver");
+            scContainer.classList.remove("opacity-100");
+            scContainer.classList.add("opacity-0");
+            setTimeout(() => {
+                scContainer.classList.add("hidden");
+                systemIdleSecondsCounter = 0;
+            }, 700);
         }
 
         async function fetchBMKGData() {
@@ -744,7 +904,6 @@
             evaluasiAlertSistemManual(parseFloat(g.mag), parseInt(g.depth.replace(' km', '')), isTsunamiPotential);
         }
 
-        // PERBAIKAN POPUP/TOOLTIP: MENGHAPUS PEMBATASAN UKURAN AGAR TEKS LOKASI PANJANG TIDAK TERPOTONG (...)
         function renderMapMarkers(coords, title, mag, isTsunami, impacts) {
             if (!mapInstance) return;
             if (activeEpicenterMarker) mapInstance.removeLayer(activeEpicenterMarker);
@@ -767,7 +926,6 @@
                 className: 'pulse-epicenter'
             }).addTo(mapInstance);
 
-            // Modifikasi class Tailwind: Menggunakan w-auto, max-w-[320px], whitespace-normal, dan break-words agar teks membungkus rapi secara otomatis
             const popupPayload = `
                 <div class="font-mono text-xs p-0.5 leading-relaxed w-auto max-w-[320px] select-text">
                     <div class="flex items-start gap-1.5 border-b border-slate-700/60 pb-1.5 mb-1.5 pr-5">
@@ -814,8 +972,6 @@
             initClockEngine();
             injectWindyIframe('backWeatherHolder');
             initGlobalTooltipTracking();
-
-            document.getElementById('chatInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') processChatMessage(); });
         }
 
         function applyMapTileLayer(style) {
@@ -944,7 +1100,6 @@
             evaluasiAlertSistemManual(magnitude, depth, faultType === "thrust" || faultType === "normal");
         }
 
-        // UNIVERSAL SEARCH HANDLING WITH AUTOMATIC CRITERIA MATCHING
         function executeUniversalSearch(inputId, suggestionId) {
             const inputField = document.getElementById(inputId);
             const rawQuery = inputField.value.trim().toLowerCase();
