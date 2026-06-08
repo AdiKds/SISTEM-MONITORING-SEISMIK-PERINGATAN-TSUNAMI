@@ -208,11 +208,11 @@
         }
         @keyframes ear-twitch-l {
             0%, 90%, 100% { transform: rotate(-15deg); }
-            93%, 97% { transform: rotate(-28deg); }
+            93%, 97% { transform: rotate(-30deg); }
         }
         @keyframes ear-twitch-r {
             0%, 88%, 100% { transform: rotate(15deg); }
-            91%, 95% { transform: rotate(28deg); }
+            91%, 95% { transform: rotate(30deg); }
         }
         @keyframes tongue-stick-out {
             0%, 75%, 100% { transform: scaleY(0) translateX(-50%); }
@@ -259,18 +259,20 @@
             <div class="absolute w-[320px] h-[320px] rounded-full border border-cyan-500/20 animate-ping" style="animation-duration: 4s;"></div>
             <div class="absolute w-[260px] h-[260px] rounded-full border-2 border-dashed border-indigo-500/30 animate-spin" style="animation-duration: 35s; transform: rotateX(75deg);"></div>
             
-            <div class="absolute z-20 top-2 flex flex-col items-center justify-center filter drop-shadow-[0_0_15px_rgba(6,182,212,0.6)]">
+            <div class="absolute z-20 top-2 w-44 h-40 flex flex-col items-center justify-start filter drop-shadow-[0_0_15px_rgba(6,182,212,0.6)]">
                 
-                <div class="cat-ear-twitch-l absolute top-2 left-6 w-10 h-14 bg-gradient-to-br from-cyan-400 to-indigo-950 border-2 border-cyan-300 rounded-tl-full rounded-br-xl" style="transform: rotate(-15deg);">
-                    <div class="w-5 h-9 bg-slate-950/80 m-1 rounded-tl-full rounded-br-lg border border-cyan-500/30"></div>
-                </div>
-                <div class="cat-ear-twitch-r absolute top-2 right-6 w-10 h-14 bg-gradient-to-bl from-cyan-400 to-indigo-950 border-2 border-cyan-300 rounded-tr-full rounded-bl-xl" style="transform: rotate(15deg);">
-                    <div class="w-5 h-9 bg-slate-950/80 m-1 rounded-tr-full rounded-bl-lg border border-cyan-500/30"></div>
+                <div class="w-full h-12 relative">
+                    <div class="cat-ear-twitch-l absolute bottom-0 left-2 w-10 h-14 bg-gradient-to-br from-cyan-400 to-indigo-950 border-2 border-cyan-300 rounded-tl-full rounded-br-xl" style="transform: rotate(-15deg);">
+                        <div class="w-5 h-9 bg-slate-950/80 m-1 rounded-tl-full rounded-br-lg border border-cyan-500/30"></div>
+                    </div>
+                    <div class="cat-ear-twitch-r absolute bottom-0 right-2 w-10 h-14 bg-gradient-to-bl from-cyan-400 to-indigo-950 border-2 border-cyan-300 rounded-tr-full rounded-bl-xl" style="transform: rotate(15deg);">
+                        <div class="w-5 h-9 bg-slate-950/80 m-1 rounded-tr-full rounded-bl-lg border border-cyan-500/30"></div>
+                    </div>
                 </div>
 
-                <div class="cat-tail-wag absolute bottom-1 right-2 w-3.5 h-18 bg-gradient-to-b from-cyan-400 to-blue-600 border border-cyan-300 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+                <div class="cat-tail-wag absolute bottom-6 right-0 w-3.5 h-18 bg-gradient-to-b from-cyan-400 to-blue-600 border border-cyan-300 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)] z-0"></div>
 
-                <div class="w-38 h-28 bg-gradient-to-b from-slate-900/95 via-slate-950 to-cyan-950/90 border-2 border-cyan-400 rounded-[35px_35px_30px_30px] hologram-cat-glow flex flex-col items-center justify-center relative">
+                <div class="w-38 h-28 bg-gradient-to-b from-slate-900/95 via-slate-950 to-cyan-950/90 border-2 border-cyan-400 rounded-[35px_35px_30px_30px] hologram-cat-glow flex flex-col items-center justify-center relative z-10">
                     <div class="absolute top-0 w-6 h-2.5 bg-cyan-400 rounded-b-full shadow-[0_0_8px_rgba(6,182,212,0.8)] animate-pulse"></div>
 
                     <div class="flex justify-between w-26 mt-2">
@@ -299,7 +301,7 @@
                     <div class="absolute right-1 top-18 w-5 h-0.5 bg-cyan-400/30"></div>
                 </div>
 
-                <div class="w-18 h-4 bg-cyan-500/20 border border-cyan-400 rounded-full mt-[-4px] flex items-center justify-center">
+                <div class="w-18 h-4 bg-cyan-500/20 border border-cyan-400 rounded-full mt-[-4px] flex items-center justify-center z-10">
                     <div class="w-2.5 h-2.5 bg-amber-400 rounded-full shadow-[0_0_8px_rgba(234,179,8,1)] animate-pulse"></div>
                 </div>
             </div>
