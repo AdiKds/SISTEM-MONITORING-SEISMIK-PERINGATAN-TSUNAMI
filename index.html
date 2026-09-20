@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InaTEWS Pro v4.0 - Sistem Peringatan Dini Gempa Bumi, Tsunami & Geoteknik Seismik Nasional</title>
+    <title>InaTEWS Pro v4.5 - Sistem Peringatan Dini Gempa Bumi, Tsunami & Geoteknik Seismik Nasional</title>
     
     <!-- Tailwind CSS Browser v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -544,14 +544,14 @@
         <!-- HEADER HUD -->
         <header class="w-full bg-[var(--bg-header)] p-3 md:p-3.5 rounded-xl border-2 border-[var(--border-color)] shadow-xl flex flex-col lg:flex-row justify-between items-center gap-3 glass-panel" title="Panel Utama Sistem Monitoring Seismik & Tsunami InaTEWS Pro">
             
-            <div class="flex items-center gap-3 w-full lg:w-auto" title="Status InaTEWS Pro v4.0">
+            <div class="flex items-center gap-3 w-full lg:w-auto" title="Status InaTEWS Pro v4.5">
                 <div class="p-3 bg-cyan-950/60 rounded-xl border border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center justify-center">
                     <i class="fa-solid fa-tower-broadcast text-cyan-400 text-2xl animate-pulse"></i>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
                         <h1 class="font-tech text-lg md:text-xl font-black tracking-widest color-main uppercase glow-text">InaTEWS PRO</h1>
-                        <span class="text-[9px] font-mono px-2 py-0.5 bg-cyan-950 text-cyan-400 border border-cyan-500/50 rounded font-bold" title="Versi Rilis Aplikasi v3.0 Super Canggih">v4.0 PRO</span>
+                        <span class="text-[9px] font-mono px-2 py-0.5 bg-cyan-950 text-cyan-400 border border-cyan-500/50 rounded font-bold" title="Versi Rilis Aplikasi v4.5 Peta Stabil + 32 Sesar + Windy Sync">v4.5 PRO</span>
                     </div>
                     <p class="text-[10px] font-mono text-emerald-400 mt-0.5 font-bold flex items-center gap-1.5 uppercase" title="Status Sinyal Feed Seismologi BMKG Real-Time">
                         <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span> LIVE SEISMIC &amp; GEOTECHNICAL MONITORING
@@ -725,10 +725,11 @@
                      <div class="flex items-center gap-1.5">
                          <!-- Basemap Layer Switcher (Aktif saat Peta GIS) -->
                          <div id="gisBasemapGroup" class="flex rounded bg-inner-box p-0.5 text-[9px] font-mono font-bold">
-                             <button onclick="switchBaseMapLayer('satellite')" id="mapBtn-satellite" class="px-2 py-1 rounded bg-cyan-700 text-white cursor-pointer font-bold shadow-sm" title="Google Satellite Imagery">SAT</button>
-                             <button onclick="switchBaseMapLayer('dark')" id="mapBtn-dark" class="px-2 py-1 rounded color-sub hover:color-main cursor-pointer" title="CartoDB Dark Theme">DARK</button>
-                             <button onclick="switchBaseMapLayer('terrain')" id="mapBtn-terrain" class="px-2 py-1 rounded color-sub hover:color-main cursor-pointer" title="ArcGIS Topo 3D">TOPO</button>
-                             <button onclick="switchBaseMapLayer('street')" id="mapBtn-street" class="px-2 py-1 rounded color-sub hover:color-main cursor-pointer" title="OpenStreetMap Standard">OSM</button>
+                             <button onclick="switchBaseMapLayer('satellite')" id="mapBtn-satellite" class="px-2 py-1 rounded bg-cyan-700 text-white cursor-pointer font-bold shadow-sm" title="Citra Satelit Esri World Imagery (Stabil, Tanpa API Key)">SAT</button>
+                             <button onclick="switchBaseMapLayer('hybrid')" id="mapBtn-hybrid" class="px-2 py-1 rounded color-sub hover:color-main cursor-pointer" title="Hybrid: Citra Satelit + Label Nama Wilayah">HYB</button>
+                             <button onclick="switchBaseMapLayer('dark')" id="mapBtn-dark" class="px-2 py-1 rounded color-sub hover:color-main cursor-pointer" title="Esri Dark Gray Canvas (Stabil)">DARK</button>
+                             <button onclick="switchBaseMapLayer('terrain')" id="mapBtn-terrain" class="px-2 py-1 rounded color-sub hover:color-main cursor-pointer" title="Esri World Topographic">TOPO</button>
+                             <button onclick="switchBaseMapLayer('street')" id="mapBtn-street" class="px-2 py-1 rounded color-sub hover:color-main cursor-pointer" title="Esri World Street Map (Fix Access Blocked)">STREET</button>
                          </div>
 
                          <!-- Windy Layer Switcher di Toolbar (Aktif saat Radar Laut) -->
@@ -783,6 +784,10 @@
                                     <i class="fa-solid fa-bolt"></i> <span>SESAR ON</span>
                                 </button>
 
+                                <button onclick="openFaultsModal()" class="p-1.5 px-2.5 bg-slate-900/90 border border-fuchsia-500/60 text-fuchsia-400 rounded-lg text-[9px] font-mono font-bold hover:bg-fuchsia-950 backdrop-blur-md cursor-pointer flex items-center gap-1.5 shadow-lg" title="Daftar Lengkap 37 Sesar & Zona Subduksi Aktif Nusantara">
+                                    <i class="fa-solid fa-list"></i> <span>DAFTAR SESAR</span>
+                                </button>
+
                                 <button onclick="toggleSensorsLayer()" id="btnToggleSensors" class="p-1.5 px-2.5 bg-slate-900/90 border border-emerald-500/60 text-emerald-400 rounded-lg text-[9px] font-mono font-bold hover:bg-emerald-950 backdrop-blur-md cursor-pointer flex items-center gap-1.5 shadow-lg" title="Aktifkan/Nonaktifkan Stasiun Sensor InaTEWS">
                                     <i class="fa-solid fa-tower-cell"></i> <span>SENSOR ON</span>
                                 </button>
@@ -795,6 +800,14 @@
                             <!-- The Leaflet Canvas -->
                             <div id="map" class="w-full h-full z-10"></div>
                             
+                            <!-- Fault Legend (v4.5) -->
+                            <div id="mapFaultLegend" class="absolute bottom-3 right-3 z-[400] pointer-events-none">
+                                <div class="bg-slate-900/85 backdrop-blur-md p-2 rounded-lg border border-rose-500/40 shadow-lg">
+                                    <div class="text-[8px] font-mono font-bold text-rose-400 mb-1 uppercase tracking-wider">Legenda Sesar & Subduksi</div>
+                                    <div id="mapFaultLegendItems" class="space-y-0.5"></div>
+                                </div>
+                            </div>
+
                             <!-- Telemetry Bottom Overlay -->
                             <div class="absolute bottom-3 left-3 z-[400] pointer-events-none">
                                 <div class="text-[10px] font-mono font-bold color-main bg-slate-900/85 p-2 rounded-lg backdrop-blur-md shadow-lg border border-cyan-500/40">
@@ -999,14 +1012,14 @@
             <div class="md:pl-4 flex flex-col justify-between">
                 <div>
                     <h3 class="font-tech text-xs font-black text-cyan-400 mb-1 flex items-center gap-1.5">
-                        <i class="fa-solid fa-terminal text-fuchsia-400"></i> InaTEWS Pro v4.0 Spatial Engine
+                        <i class="fa-solid fa-terminal text-fuchsia-400"></i> InaTEWS Pro v4.5 Spatial Engine
                     </h3>
                     <p class="font-mono text-[10px] color-sub">
                         Dikonstruksi oleh <b class="text-fuchsia-400">Mohamad Hartadi</b>. Sistem peringatan dini kebencanaan gempa bumi, tsunami, analisis dinamika tanah geoteknik, dan kecerdasan artifisial.
                     </p>
                 </div>
                 <div class="mt-2 text-[9px] font-mono text-slate-500">
-                    &copy; 2026 Mohamad Hartadi &bull; InaTEWS Pro v4.0 &bull; Multi-Method GMPE Analysis Engine &bull; All Rights Reserved.
+                    &copy; 2026 Mohamad Hartadi &bull; InaTEWS Pro v4.5 &bull; Multi-Method GMPE Analysis Engine &bull; All Rights Reserved.
                 </div>
             </div>
         </footer>
@@ -1270,12 +1283,29 @@
         </div>
     </div>
 
+    <!-- MODAL: DAFTAR SESAR AKTIF NUSANTARA (v4.5) -->
+    <div id="faultsModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[10005] flex items-center justify-center p-4 hidden" onclick="if(event.target===this) closeFaultsModal()">
+        <div class="bg-[var(--bg-card)] border-2 border-theme rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
+            <div class="flex items-center justify-between p-4 border-b border-slate-700 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-rose-600/20 border border-rose-500/60 flex items-center justify-center text-rose-400"><i class="fa-solid fa-bolt"></i></div>
+                    <div>
+                        <h3 class="font-black text-sm text-white font-mono tracking-wide">DAFTAR SESAR AKTIF NUSANTARA</h3>
+                        <p class="text-[10px] color-sub">37 sesar & zona subduksi aktif — PuSGeN 2024 & Pusat Geologi (PusGeol)</p>
+                    </div>
+                </div>
+                <button onclick="closeFaultsModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-rose-700 text-white font-bold cursor-pointer transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="faultsModalList" class="p-4 overflow-y-auto overflow-x-hidden"></div>
+        </div>
+    </div>
+
     <!-- MODAL: HELP & PANDUAN SISTEM -->
     <div id="helpModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[10005] flex items-center justify-center p-4 hidden" onclick="if(event.target===this) closeHelpModal()">
         <div class="bg-[var(--bg-card)] border-2 border-emerald-500 p-5 sm:p-6 rounded-2xl max-w-2xl w-full flex flex-col gap-3.5 shadow-2xl glass-panel max-h-[85vh] overflow-hidden">
             <div class="flex justify-between items-center border-b border-theme pb-2.5">
                 <h3 class="font-tech text-sm sm:text-base font-black text-emerald-400 tracking-widest uppercase flex items-center gap-2">
-                    <i class="fa-solid fa-book-journal-whills text-emerald-500"></i> PANDUAN PENGGUNA INATEWS PRO V4.0
+                    <i class="fa-solid fa-book-journal-whills text-emerald-500"></i> PANDUAN PENGGUNA INATEWS PRO V4.5
                 </h3>
                 <button onclick="closeHelpModal()" class="color-sub hover:text-red-400 cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
@@ -1313,7 +1343,7 @@
         let activeEpicenterMarker = null;
         let mapShockwaveCircle = null;
         let refreshCountdown = 60;
-        let currentActiveBasemap = 'satellite';
+        var currentActiveBasemap = 'satellite';
         let lastKnownEpiId = "";
 
         let isPredictiveAlgoActive = true;
@@ -1359,18 +1389,61 @@
         ];
 
         // Sesar Aktif Utama Indonesia
-        const tectonicFaultsData = [
-            { name: "Sesar Semangko / Great Sumatran Fault", color: "#f43f5e", path: [[5.8, 95.3], [4.5, 96.2], [3.2, 97.5], [1.5, 99.1], [-0.5, 100.5], [-2.5, 102.3], [-4.8, 104.5], [-5.9, 105.7]] },
-            { name: "Zona Megathrust Mentawai-Sunda", color: "#dc2626", path: [[6.5, 93.5], [3.0, 95.0], [0.0, 97.5], [-3.5, 100.0], [-6.5, 103.5], [-8.5, 108.0], [-10.0, 115.0], [-10.5, 122.0]] },
-            { name: "Sesar Palu-Koro (Sulawesi Tengah)", color: "#f59e0b", path: [[1.2, 120.8], [0.2, 120.2], [-0.9, 119.9], [-2.2, 120.5], [-3.5, 121.2]] },
-            { name: "Sesar Matano & Lawanopo", color: "#eab308", path: [[-2.3, 121.2], [-2.6, 122.0], [-3.2, 122.8], [-4.0, 123.5]] },
-            { name: "Sesar Cimandiri (Jawa Barat)", color: "#10b981", path: [[-6.9, 106.5], [-6.95, 106.9], [-7.0, 107.4]] },
-            { name: "Sesar Lembang (Bandung)", color: "#06b6d4", path: [[-6.81, 107.52], [-6.82, 107.65], [-6.83, 107.78]] },
-            { name: "Sesar Opak (DIY Yogyakarta)", color: "#6366f1", path: [[-7.85, 110.35], [-7.95, 110.42], [-8.05, 110.50]] },
-            { name: "Sesar Kendeng & Rembang", color: "#8b5cf6", path: [[-7.25, 111.0], [-7.30, 112.0], [-7.35, 113.0]] },
-            { name: "Sesar Tarera-Aiduna (Papua)", color: "#ec4899", path: [[-3.8, 134.0], [-4.0, 136.0], [-4.3, 138.5]] },
-            { name: "Sesar Sorong (Papua Barat Daya)", color: "#f43f5e", path: [[-0.8, 130.5], [-0.9, 132.0], [-1.2, 134.5]] },
-            { name: "Flores Back-Arc Thrust", color: "#dc2626", path: [[-8.0, 116.0], [-8.1, 119.0], [-8.2, 122.5], [-8.0, 125.0]] }
+                // ==== NUSANTARA ACTIVE FAULT DATABASE (v4.5): 37 sesar & zona subduksi, warna per tipe ====
+        // Tipe & warna: Megathrust #dc2626 | Sesar Geser Mendatar #f59e0b | Sesar Naik #10b981 | Back-Arc Thrust #ec4899 | Sesar Mendatar Samudra #06b6d4
+        var tectonicFaultsData = [
+            // --- Sumatera ---
+            { name: "Zona Megathrust Mentawai-Sunda", type: "Megathrust", mmax: "M 8.9", slip: "40 - 70 mm/th", color: "#dc2626", path: [[6.5, 93.5], [3.0, 95.0], [0.0, 97.5], [-3.5, 100.0], [-6.5, 103.5], [-8.5, 108.0], [-10.0, 115.0], [-10.5, 122.0]], desc: "Antarmuka subduksi aktif di barat pulau Sumatera; sumber gempa Aceh 2004 (M9.1), Nias 2005 (M8.6), Bengkulu 2007 (M8.5), dan Padang 2009 (M7.6)." },
+            { name: "Sesar Semangko (Great Sumatran Fault)", type: "Sesar Geser Mendatar", mmax: "M 7.7", slip: "10 - 25 mm/th", color: "#f59e0b", path: [[5.8, 95.3], [4.5, 96.2], [3.2, 97.5], [1.5, 99.1], [-0.5, 100.5], [-2.5, 102.3], [-4.8, 104.5], [-5.9, 105.7]], desc: "Sesar geser mengiri sepanjang ±1.900 km dari Aceh sampai Sunda; membatasi depresi Semangko dan bergerak sangat cepat." },
+            { name: "Sesar Aceh (Segmen Samudra)", type: "Sesar Geser Mendatar", mmax: "M 7.0", slip: "5 - 15 mm/th", color: "#f59e0b", path: [[5.6, 95.2], [4.9, 95.9], [4.3, 96.4]], desc: "Segmen utara Sesar Semangko di sekitar Banda Aceh dan Pulau Weh." },
+            { name: "Sesar Renun (Sumatera Utara)", type: "Sesar Geser Mendatar", mmax: "M 6.8", slip: "3 - 8 mm/th", color: "#f59e0b", path: [[1.0, 99.0], [0.5, 99.6], [0.0, 100.1]], desc: "Sesar kerak aktif di sekitar Danau Toba, memotong kaldera tua." },
+            { name: "Sesar Angkola (Sumatera Barat)", type: "Sesar Geser Mendatar", mmax: "M 7.0", slip: "5 - 12 mm/th", color: "#f59e0b", path: [[-0.6, 100.2], [-1.2, 101.0], [-1.8, 101.6]], desc: "Segmen selatan-tengah Sesar Semangko di sekitar Bonjol dan Angkola." },
+            { name: "Sesar Toru (Sumatera Barat)", type: "Sesar Naik", mmax: "M 6.5", slip: "1 - 4 mm/th", color: "#10b981", path: [[-0.5, 100.8], [-1.0, 101.5], [-1.6, 102.2]], desc: "Sesar naik belakang busur di selatan Padang; berpotensi gempa dangkal dekat kota." },
+            { name: "Sesar Mentawai (Segmen Simentawa)", type: "Megathrust", mmax: "M 8.5", slip: "40 - 60 mm/th", color: "#dc2626", path: [[-0.5, 98.5], [-2.0, 99.5], [-3.5, 100.5]], desc: "Segmen megathrust di lepas pantai Mentawai; pecah parsial pada rangkaian 2005-2010." },
+            // --- Jawa ---
+            { name: "Sesar Baribis (Jawa Barat)", type: "Sesar Naik", mmax: "M 7.0", slip: "0.5 - 3 mm/th", color: "#10b981", path: [[-6.2, 106.4], [-6.5, 107.2], [-6.8, 107.9], [-7.1, 108.6]], desc: "Sesar naik aktif di tepi utara zona vulkanik Jawa Barat; ancaman dekat Bogor-Jakarta (Ie 1.5)." },
+            { name: "Sesar Cimandiri (Jawa Barat)", type: "Sesar Naik", mmax: "M 7.0", slip: "0.5 - 2 mm/th", color: "#10b981", path: [[-6.9, 106.5], [-6.95, 106.9], [-7.0, 107.4]], desc: "Sesar naik-mendatar Sukabumi; zona sumber gempa Tasikmalaya 2009 di darat." },
+            { name: "Sesar Lembang (Bandung)", type: "Sesar Naik", mmax: "M 6.8", slip: "0.5 - 2 mm/th", color: "#10b981", path: [[-6.81, 107.52], [-6.82, 107.65], [-6.83, 107.78]], desc: "Sesar naik 29 km di utara Bandung; bergerak aktif dan dekat permukiman padat." },
+            { name: "Sesar Opak (DI Yogyakarta)", type: "Sesar Naik", mmax: "M 6.8", slip: "0.5 - 2 mm/th", color: "#10b981", path: [[-7.85, 110.35], [-7.95, 110.42], [-8.05, 110.50]], desc: "Sesar kerak sumber gempa Yogyakarta 2006 (M6.3, 5.700 korban); melintasi Bantul-Prambanan." },
+            { name: "Sesar Kendeng & Rembang", type: "Sesar Naik", mmax: "M 6.5", slip: "0.3 - 1 mm/th", color: "#10b981", path: [[-7.25, 111.0], [-7.30, 112.0], [-7.35, 113.0], [-7.2, 114.0]], desc: "Sistem sesar naik back-arc utara Jawa dari Purwodadi sampai Rembang." },
+            { name: "Sesar Muria (Jawa Tengah)", type: "Sesar Geser Mendatar", mmax: "M 6.5", slip: "0.3 - 1 mm/th", color: "#f59e0b", path: [[-6.6, 110.7], [-6.8, 110.9], [-7.0, 111.1]], desc: "Sesar mendatar di sekitar Gunung Muria; memengaruhi wilayah Kudus dan sekitarnya." },
+            { name: "Sesar Pati-Lasem (Rembang)", type: "Sesar Geser Mendatar", mmax: "M 6.7", slip: "0.5 - 2 mm/th", color: "#f59e0b", path: [[-6.5, 111.0], [-6.6, 111.5], [-6.75, 112.1]], desc: "Sesar aktif pantura timur Jawa Tengah; sumber gempa kerak dangkal bersejarah di wilayah Rembang." },
+            { name: "Sesar Semarang-Kaligarang", type: "Sesar Geser Mendatar", mmax: "M 6.0", slip: "0.3 - 1 mm/th", color: "#f59e0b", path: [[-6.95, 110.35], [-7.05, 110.42], [-7.15, 110.50]], desc: "Sesar kerak yang membelah kota Semarang di sepanjang lembah Kaligarang." },
+            { name: "Sesar Pasuruan (Jawa Timur)", type: "Sesar Naik", mmax: "M 6.8", slip: "0.5 - 2 mm/th", color: "#10b981", path: [[-7.55, 112.8], [-7.65, 113.0], [-7.75, 113.2]], desc: "Sesar naik antara Malang dan Pasuruan; terkait gempa kerak Jawa Timur 2015." },
+            { name: "Sesar Probolinggo (Jawa Timur)", type: "Sesar Naik", mmax: "M 6.8", slip: "0.5 - 2 mm/th", color: "#10b981", path: [[-7.6, 113.1], [-7.7, 113.25], [-7.8, 113.4]], desc: "Sesar naik di selatan Probolinggo, berlanjut ke lereng bromo-Tengger." },
+            // --- Bali & Nusa Tenggara ---
+            { name: "Flores Back-Arc Thrust", type: "Back-Arc Thrust", mmax: "M 7.8", slip: "5 - 15 mm/th", color: "#ec4899", path: [[-8.0, 116.0], [-8.1, 119.0], [-8.2, 122.5], [-8.0, 125.0]], desc: "Sesar naik belakang busur di laut utara Bali-Lombok-Sumbawa-Flores; sumber gempa Lombok 2018 (M6.9) dan Maumere 1992 (M7.8)." },
+            { name: "Zona Sesar Timor (Timor & Semau)", type: "Sesar Naik", mmax: "M 7.5", slip: "3 - 7 mm/th", color: "#10b981", path: [[-9.0, 123.5], [-9.4, 124.2], [-9.8, 124.8], [-10.2, 125.3]], desc: "Sistem sesar naik kompleks akibat tumbukan benua Australia-Banda di Pulau Timor; sumber gempa Kupang 2023." },
+            { name: "Zona Sesar Sumbawa Selatan", type: "Sesar Naik", mmax: "M 6.5", slip: "1 - 3 mm/th", color: "#10b981", path: [[-8.9, 116.5], [-9.0, 117.5], [-9.1, 118.5]], desc: "Sesar naik kerak di selatan Sumbawa, zona sumber gempa bumi dangkal Bima." },
+            // --- Kalimantan ---
+            // (Kalimantan: intra-lempeng stabil, tanpa sesar aktif mayor)
+            // --- Sulawesi ---
+            { name: "Sesar Palu-Koro (Sulawesi Tengah)", type: "Sesar Geser Mendatar", mmax: "M 7.7", slip: "15 - 40 mm/th", color: "#f59e0b", path: [[1.2, 120.8], [0.2, 120.2], [-0.9, 119.9], [-2.2, 120.5], [-3.5, 121.2]], desc: "Sesar geser tercepat di Indonesia; sumber gempa Palu 2018 (M7.5) + likuifaksi + tsunami, >4.000 korban." },
+            { name: "Sesar Mamuju (Sulawesi Barat)", type: "Sesar Geser Mendatar", mmax: "M 7.2", slip: "2 - 8 mm/th", color: "#f59e0b", path: [[-2.3, 118.9], [-2.7, 119.0], [-3.1, 119.3]], desc: "Cabang barat sistem Palu-Koro; sumber gempa Majene-Mamuju 2021 (M6.2)." },
+            { name: "Sesar Poso (Sulawesi Tengah)", type: "Sesar Geser Mendatar", mmax: "M 7.0", slip: "5 - 15 mm/th", color: "#f59e0b", path: [[-1.6, 120.4], [-2.1, 120.8], [-2.6, 121.3]], desc: "Sesar mendatar kawan Palu-Koro di sekitar lembah Poso." },
+            { name: "Sesar Matano & Lawanopo", type: "Sesar Geser Mendatar", mmax: "M 7.0", slip: "5 - 15 mm/th", color: "#f59e0b", path: [[-2.3, 121.2], [-2.6, 122.0], [-3.2, 122.8], [-4.0, 123.5]], desc: "Sistem sesar mendatar di lengan tenggara Sulawesi menuju Laut Banda." },
+            { name: "Sesar Walanae (Sulawesi Selatan)", type: "Sesar Geser Mendatar", mmax: "M 6.8", slip: "1 - 5 mm/th", color: "#f59e0b", path: [[-4.0, 119.7], [-4.4, 120.3], [-4.9, 120.6]], desc: "Sesar mendatar lembah Walanae di sekitar Bone dan Sengkang." },
+            { name: "Sesar Balantak (Sulawesi Timur)", type: "Sesar Naik", mmax: "M 6.5", slip: "1 - 3 mm/th", color: "#10b981", path: [[-0.8, 123.6], [-1.1, 123.3], [-1.4, 123.0]], desc: "Sesar naik di sekitar Teluk Tolo, lengan timur Sulawesi." },
+            { name: "Zona Subduksi Sangihe (Sulut-Malut)", type: "Megathrust", mmax: "M 8.0", slip: "20 - 50 mm/th", color: "#dc2626", path: [[3.5, 125.0], [1.5, 125.5], [-0.5, 125.0], [-2.0, 123.5]], desc: "Zona subduksi laut Sulawesi utara; sumber gempa dan tsunami Sangihe-Maluku Utara." },
+            // --- Maluku ---
+            { name: "Sesar Halmahera", type: "Sesar Geser Mendatar", mmax: "M 7.5", slip: "10 - 30 mm/th", color: "#f59e0b", path: [[0.5, 127.5], [0.2, 128.2], [-0.2, 128.8], [-0.6, 129.3]], desc: "Sesar geser zona kolisi Halmahera; sangat aktif di sekitar Maluku Utara." },
+            { name: "Sesar Seram (Maluku)", type: "Sesar Naik", mmax: "M 7.0", slip: "5 - 15 mm/th", color: "#10b981", path: [[-3.2, 128.2], [-3.1, 129.2], [-3.3, 130.3]], desc: "Sesar naik memanjang Pulau Seram; sumber gempa Ambon 2019 (M6.5)." },
+            { name: "Zona Megathrust Banda", type: "Megathrust", mmax: "M 8.5", slip: "30 - 70 mm/th", color: "#dc2626", path: [[-4.0, 129.5], [-5.5, 130.5], [-7.0, 131.0], [-8.0, 130.5]], desc: "Zona tunjaman laut Banda; sumber gempa besar 1938 (M8.5) dengan tsunami historis." },
+            // --- Papua ---
+            { name: "Sesar Tarera-Aiduna (Papua)", type: "Sesar Geser Mendatar", mmax: "M 7.5", slip: "10 - 25 mm/th", color: "#f59e0b", path: [[-3.8, 134.0], [-4.0, 136.0], [-4.3, 138.5]], desc: "Sesar geser besar di leher kepala burung Papua; salah satu paling aktif di Indonesia timur." },
+            { name: "Sesar Sorong (Papua Barat Daya)", type: "Sesar Geser Mendatar", mmax: "M 7.0", slip: "5 - 15 mm/th", color: "#f59e0b", path: [[-0.8, 130.5], [-0.9, 132.0], [-1.2, 134.5]], desc: "Sesar mendatar besar memisahkan blok kepala burung dari batang Papua." },
+            { name: "Sesar Yapen (Papua)", type: "Sesar Geser Mendatar", mmax: "M 7.0", slip: "5 - 15 mm/th", color: "#f59e0b", path: [[-1.7, 136.5], [-1.9, 137.5], [-2.1, 138.3]], desc: "Sesar mendatar di sepanjang Pulau Yapen, kelanjutan sistem Sorong." },
+            { name: "Sesar Mamberamo (Papua)", type: "Sesar Naik", mmax: "M 7.6", slip: "5 - 12 mm/th", color: "#10b981", path: [[-2.0, 138.0], [-2.5, 139.0], [-3.0, 140.0]], desc: "Sistem sesar naik-mendatar dataran tinggi Mamberamo menuju Pegunungan Jayawijaya." },
+            { name: "Sesar Ransiki (Papua Barat)", type: "Sesar Naik", mmax: "M 7.7", slip: "10 - 40 mm/th", color: "#10b981", path: [[-1.0, 134.0], [-1.4, 134.4], [-1.8, 134.8]], desc: "Zona tunjaman/sesar naik selatan kepala burung; sumber gempa Manokwari 2009 (M7.7)." },
+            { name: "Sesar Wamena (Baliem Valley)", type: "Sesar Geser Mendatar", mmax: "M 7.0", slip: "5 - 12 mm/th", color: "#f59e0b", path: [[-3.8, 138.2], [-4.0, 138.9], [-4.2, 139.6]], desc: "Sesar mendatar lembah Baliem; memotong Pegunungan Jayawijaya di pedalaman Papua." },
+            { name: "Sesar Mendatar Samudra Hindia (Intra-lempeng)", type: "Sesar Mendatar Samudra", mmax: "M 8.6", slip: "—", color: "#06b6d4", path: [[2.0, 90.5], [0.5, 92.5], [-1.0, 94.0]], desc: "Sesar mendatar intra-slab samudra; sumber gempa terbesar jenis strike-slip dunia (M8.6, 11 April 2012)." }
+        ];
+        var FAULT_TYPE_LEGEND = [
+            { type: "Megathrust", color: "#dc2626" },
+            { type: "Sesar Geser Mendatar", color: "#f59e0b" },
+            { type: "Sesar Naik", color: "#10b981" },
+            { type: "Back-Arc Thrust", color: "#ec4899" },
+            { type: "Sesar Mendatar Samudra", color: "#06b6d4" }
         ];
 
         // Stasiun Sensor InaTEWS
@@ -1393,12 +1466,16 @@
         let selectedActiveCoordinates = [-6.45, 104.72];
         const windyIframeUrl = "https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=°C&metricWind=km/h&zoom=4&overlay=waves&product=ecmwf&level=surface&lat=-2.5&lon=118.0";
 
-        const baseMapProviders = {
-            satellite: 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
-            dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        // FIX v4.5: tile OSM langsung (403 Access Blocked) & CARTO (API key required) diganti Esri resmi — tanpa API key, stabil.
+        var baseMapProviders = {
+            satellite: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            hybrid: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            dark: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
             terrain: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-            street: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            street: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
         };
+        var FALLBACK_TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+        var hybridLabelsLayer = null;
 
         // ================= KATA-KATA BIJAK & MOTIVASI SCREENSAVER =================
         const wisdomQuotes = [
@@ -1644,13 +1721,28 @@
         function applyMapTileLayer(style) {
             if (!mapInstance) return;
             if (currentTileLayer) mapInstance.removeLayer(currentTileLayer);
-            currentTileLayer = L.tileLayer(baseMapProviders[style], { maxZoom: 20, attribution: 'InaTEWS &copy; BMKG' }).addTo(mapInstance);
+            if (hybridLabelsLayer) { mapInstance.removeLayer(hybridLabelsLayer); hybridLabelsLayer = null; }
+            const url = baseMapProviders[style] || baseMapProviders.satellite;
+            currentTileLayer = L.tileLayer(url, { maxZoom: 20, attribution: 'InaTEWS &copy; BMKG • Tiles &copy; Esri, Maxar, Earthstar Geographics | &copy; OpenStreetMap contributors' }).addTo(mapInstance);
+            if (style === 'hybrid') {
+                hybridLabelsLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 20 }).addTo(mapInstance);
+            }
+            // Fallback otomatis jika provider utama gagal berulang
+            let tileErrCount = 0;
+            currentTileLayer.on('tileerror', function () {
+                tileErrCount++;
+                if (tileErrCount === 10) {
+                    console.warn('Tile basemap gagal — beralih ke fallback Esri Topo.');
+                    if (currentTileLayer) mapInstance.removeLayer(currentTileLayer);
+                    currentTileLayer = L.tileLayer(FALLBACK_TILE_URL, { maxZoom: 18 }).addTo(mapInstance);
+                }
+            });
             currentActiveBasemap = style;
             updateBasemapButtonsVisual(style);
         }
 
         function updateBasemapButtonsVisual(style) {
-            ['satellite', 'dark', 'terrain', 'street'].forEach(id => {
+            ['satellite', 'hybrid', 'dark', 'terrain', 'street'].forEach(id => {
                 const btn = document.getElementById(`mapBtn-${id}`);
                 if(btn) {
                     btn.className = (id === style) 
@@ -1665,28 +1757,94 @@
         function initFaultLinesLayer() {
             faultLinesLayerGroup = L.layerGroup([], { pane: 'faultPane' });
             tectonicFaultsData.forEach(fault => {
+                const isMegathrust = fault.type === 'Megathrust';
                 const polyline = L.polyline(fault.path, {
                     pane: 'faultPane',
                     color: fault.color,
-                    weight: 2.5,
-                    dashArray: '5, 5',
-                    opacity: 0.85
+                    weight: isMegathrust ? 4 : 2.5,
+                    dashArray: isMegathrust ? '10, 6' : '5, 5',
+                    opacity: 0.9
                 });
-                polyline.bindTooltip(`<b class="font-mono text-xs text-rose-400">⚡ ${fault.name}</b>`, { sticky: true });
+                polyline.bindTooltip(`<b class="font-mono text-xs" style="color:${fault.color}">⚡ ${fault.name}</b>`, { sticky: true });
+                polyline.bindPopup(`
+                    <div style="min-width:230px;font-family:'JetBrains Mono',monospace;">
+                        <div style="font-weight:800;font-size:13px;color:${fault.color};margin-bottom:4px;">⚡ ${fault.name}</div>
+                        <div style="font-size:11px;line-height:1.6;">
+                            <b>Tipe:</b> ${fault.type}<br>
+                            <b>Maks. Magnitudo:</b> ${fault.mmax}<br>
+                            <b>Laju Geseran:</b> ${fault.slip}<br>
+                            <b>Deskripsi:</b> ${fault.desc}
+                        </div>
+                    </div>`, { maxWidth: 300 });
                 faultLinesLayerGroup.addLayer(polyline);
             });
             faultLinesLayerGroup.addTo(mapInstance);
+            // Legenda peta (sekali render)
+            const legendBox = document.getElementById('mapFaultLegendItems');
+            if (legendBox && !legendBox.dataset.rendered) {
+                legendBox.innerHTML = FAULT_TYPE_LEGEND.map(l =>
+                    `<div class="flex items-center gap-1.5"><span class="w-2.5 h-0.5 rounded" style="background:${l.color}"></span><span class="text-[8.5px] text-slate-300 font-mono">${l.type}</span></div>`
+                ).join('');
+                legendBox.dataset.rendered = "1";
+            }
+        }
+
+        function focusFaultByName(name) {
+            const fault = tectonicFaultsData.find(f => f.name === name);
+            if (!fault || !mapInstance) return;
+            mapInstance.fitBounds(fault.path.map(p => [p[0], p[1]]), { padding: [60, 60] });
+            try { mapInstance.closePopup(); } catch (e) {}
+            setTimeout(() => {
+                const mid = fault.path[Math.floor(fault.path.length / 2)];
+                L.popup({ pane: 'faultPane' })
+                    .setLatLng([mid[0], mid[1]])
+                    .setContent(`<b style="color:${fault.color}">⚡ ${fault.name}</b><br><span style="font-size:11px;">${fault.type} • ${fault.mmax} • ${fault.slip}</span>`)
+                    .openOn(mapInstance);
+            }, 500);
+            if (typeof speakText === 'function') speakText(`Fokus peta ke ${fault.name}.`);
+        }
+
+        function openFaultsModal() {
+            const modal = document.getElementById('faultsModal');
+            const list = document.getElementById('faultsModalList');
+            if (!modal || !list) return;
+            const groups = {};
+            tectonicFaultsData.forEach(f => { (groups[f.type] = groups[f.type] || []).push(f); });
+            let html = '';
+            Object.entries(groups).forEach(([type, faults]) => {
+                html += `<div class="mb-3"><div class="flex items-center gap-2 mb-1.5"><span class="w-3 h-3 rounded-sm" style="background:${faults[0].color}"></span><b class="text-[11px] text-white font-mono uppercase tracking-wide">${type} (${faults.length})</b></div>`;
+                faults.forEach(f => {
+                    html += `<div class="flex items-center justify-between gap-2 pl-5 pr-2 py-1.5 bg-inner-box rounded-lg mb-1 hover:bg-slate-800/60 transition-colors">
+                        <div class="min-w-0">
+                            <b class="text-[10.5px] text-slate-100 block truncate">⚡ ${f.name}</b>
+                            <span class="text-[9px] color-sub">${f.mmax} • ${f.slip}</span>
+                        </div>
+                        <button onclick="focusFaultByName('${f.name.replace(/'/g, "\\'")}'); closeFaultsModal();" class="px-2 py-1 rounded bg-rose-700 hover:bg-rose-600 text-white text-[9px] font-bold shrink-0 cursor-pointer">LIHAT</button>
+                    </div>`;
+                });
+                html += '</div>';
+            });
+            list.innerHTML = html + `<div class="text-[9px] color-sub pt-2 border-t border-slate-700">Total ${tectonicFaultsData.length} sesar & zona subduksi aktif nusantara (Peta Bahaya Gempa PuSGeN & PusGeol). Kalimantan relatif stabil: intra-lempeng tanpa sesar aktif mayor.</div>`;
+            modal.classList.remove('hidden');
+        }
+
+        function closeFaultsModal() {
+            const modal = document.getElementById('faultsModal');
+            if (modal) modal.classList.add('hidden');
         }
 
         function toggleFaultLinesLayer() {
             const btn = document.getElementById('btnToggleFaults');
+            const legend = document.getElementById('mapFaultLegend');
             if (isFaultsVisible) {
                 mapInstance.removeLayer(faultLinesLayerGroup);
+                if (legend) legend.style.display = 'none';
                 btn.innerHTML = '<i class="fa-solid fa-bolt"></i> <span>SESAR OFF</span>';
                 btn.className = "p-1.5 px-2.5 bg-slate-900/90 border border-slate-600 text-slate-400 rounded-lg text-[9px] font-mono font-bold hover:bg-slate-800 backdrop-blur-md cursor-pointer flex items-center gap-1.5 shadow-lg";
                 isFaultsVisible = false;
             } else {
                 mapInstance.addLayer(faultLinesLayerGroup);
+                if (legend) legend.style.display = '';
                 btn.innerHTML = '<i class="fa-solid fa-bolt"></i> <span>SESAR ON</span>';
                 btn.className = "p-1.5 px-2.5 bg-slate-900/90 border border-rose-500/60 text-rose-400 rounded-lg text-[9px] font-mono font-bold hover:bg-rose-950 backdrop-blur-md cursor-pointer flex items-center gap-1.5 shadow-lg";
                 isFaultsVisible = true;
@@ -2319,11 +2477,25 @@
 
         let currentActiveWindyLayer = 'waves';
 
+        // v4.5: Windy mengikuti pusat & zoom peta GIS aktif
+        function buildWindyUrl(overlay) {
+            let lat = -2.5, lon = 118.0, zoom = 4;
+            try {
+                if (mapInstance && mapInstance.getCenter) {
+                    const c = mapInstance.getCenter();
+                    lat = Math.max(-12, Math.min(8, c.lat));
+                    lon = Math.max(94, Math.min(142, c.lng));
+                    zoom = Math.max(3, Math.min(11, mapInstance.getZoom()));
+                }
+            } catch (e) { console.warn('Windy sync notice:', e); }
+            return `https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=default&metricWind=default&zoom=${zoom}&overlay=${overlay}&product=ecmwf&level=surface&lat=${lat}&lon=${lon}&marker=false`;
+        }
+
         function switchWindyOverlay(overlay) {
             currentActiveWindyLayer = overlay;
             const iframe = document.getElementById('dashboardWeatherIframe');
             if (iframe) {
-                iframe.src = `https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=default&metricWind=default&zoom=4&overlay=${overlay}&product=ecmwf&level=surface&lat=-2.5&lon=118.0&marker=false`;
+                iframe.src = buildWindyUrl(overlay);
             }
             
             // Update button states on Top Toolbar
@@ -2369,6 +2541,12 @@
                 btnMap.className = "px-2.5 py-1 rounded color-sub hover:color-main cursor-pointer transition-all";
                 if (mapTitle) mapTitle.innerHTML = '<i class="fa-solid fa-water animate-pulse text-cyan-400"></i> Radar Laut &amp; Cuaca Maritim';
                 
+                // v4.5: segarkan Windy mengikuti pusat peta GIS terakhir
+                setTimeout(() => {
+                    const wIframe = document.getElementById('dashboardWeatherIframe');
+                    if (wIframe) wIframe.src = buildWindyUrl(currentActiveWindyLayer);
+                }, 200);
+
                 // Tampilkan switch lapisan radar di toolbar utama
                 if (gisBasemapGroup) gisBasemapGroup.classList.add('hidden');
                 if (btnRuler) btnRuler.classList.add('hidden');
@@ -2573,7 +2751,7 @@
                 <div class="chat-glow-monsoon p-3.5 bg-slate-950 rounded-xl space-y-2.5 font-mono text-xs chat-card-animated border border-amber-500/50 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
                     <div class="border-b border-amber-500/40 pb-2 flex justify-between items-center">
                         <div>
-                            <span class="text-[9px] px-2 py-0.5 bg-amber-950 text-amber-300 border border-amber-500 rounded font-black uppercase tracking-wider">AI ALGORITHM v4.0</span>
+                            <span class="text-[9px] px-2 py-0.5 bg-amber-950 text-amber-300 border border-amber-500 rounded font-black uppercase tracking-wider">AI ALGORITHM v4.5</span>
                             <h4 class="text-xs font-black font-tech text-amber-300 tracking-wider mt-1">MULTI-METHOD GMPE &amp; PSHA ANALYSIS</h4>
                         </div>
                         <span class="text-[10px] font-mono font-black text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/40">M ${mag.toFixed(1)} | ${depth} KM</span>
